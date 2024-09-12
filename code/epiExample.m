@@ -9,7 +9,7 @@ dataFolder = "../data/";
 fNameData = "NZ_covid_data.csv";
 
 % Number of particles to use
-nParticles = 1e5;
+nParticles = 1e4;
 
 % Model parameter values
 sigmaR = 0.2;
@@ -45,13 +45,15 @@ q1 = 0.95;
 
 nPlot = 20;
 h = figure(1);
-h.Position = [   680   187   724   811];
+h.Position = [  583   119   724   811];
 tiledlayout(2, 1);
 nexttile;
 p1 = fill([t, fliplr(t)], [quantile(Rt, q0), fliplr(quantile(Rt, q1))], blueCol  );
 hold on
 p2 = plot(t, Rt(1:nPlot, :), 'Color', greyCol, 'LineStyle', '-');
 p3 = plot(t, median(Rt), 'b-');
+yline(1, 'k:')
+xlim(t([1 end]))
 xlabel('t')
 ylabel('R(t)')
 legend( [p3, p1, p2(1)], 'median', '90% CI', 'sample trajectories', 'Location', 'NorthEast'  );
@@ -59,6 +61,7 @@ nexttile;
 p1 = plot(t, It(1:nPlot, :), 'Color', greyCol, 'LineStyle', '-');
 hold on
 p2 = plot(t, y, 'ro');
+xlim(t([1 end]))
 xlabel('t')
 ylabel('I(t)')
 legend('hidden state estimates')
